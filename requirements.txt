@@ -1,0 +1,11 @@
+replicate
+pypdf 
+PyPDF2 
+pikepdf 
+transliterate
+langchain 
+mlflow
+sentence-transformers
+faiss-cpu 
+text-generation
+Flask

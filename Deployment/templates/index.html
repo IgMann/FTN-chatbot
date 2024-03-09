@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style_1.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='FTN_Logo.png') }}" type="image/x-icon">
+    <title>FTN Chatbot</title>
+</head>
+<body>
+<div class="container">
+    <div>
+        <h1>FTN Chatbot</h1>
+        <img src="{{ url_for('static', filename='FTN_Logo.png') }}" alt="FTN Logo" width="125" height="125">
+    </div>
+    <form method="post" action="{{ url_for('process_question') }}">
+        <input placeholder="Postavite pitanje" type="text" id="user_input" name="user_input" required>
+        <button type="submit">Pitaj</button>
+    </form>
+
+    {% if result %}
+    <div class="result">
+        <p>Odgovor: {{ result }}</p>
+        <p>Siguran u odgovor: {{ faithfulness_score }/5}</p>
+    </div>
+    {% endif %}
+    <h2>Istorija:</h2>
+    <ul>
+        {% for entry in history %}
+<!--        <li>{{ entry.input }} -> {{ entry.output }}</li>-->
+        <li>{{ entry[0] }} -> {{ entry[1] }}</li>
+        <li>-------</li>
+        {% endfor %}
+    </ul>
+</div>
+</body>
+</html>
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Chat Pop-up</title>-->
+<!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>-->
+<!--    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">-->
+<!--    <link rel="shortcut icon" href="{{ url_for('static', filename='FTN_Logo.png') }}" type="image/x-icon">-->
+<!--</head>-->
+<!--<body>-->
+
+<!--<div id="chat-popup">-->
+<!--    <div class="header">Chat</div>-->
+<!--    <div class="content" id="chat-content">-->
+<!--        &lt;!&ndash; Chat messages will appear here &ndash;&gt;-->
+<!--    </div>-->
+<!--    <div class="input-container">-->
+<!--        <input type="text" id="message-input" placeholder="Pitaj me nešto..." onkeypress="handleKeyPress(event)">-->
+<!--        <button onclick="sendMessage()">Posalji</button>-->
+<!--    </div>-->
+
+<!--</div>-->
+
+<!--<script>-->
+<!--    function handleKeyPress(event) {-->
+<!--        if (event.key === 'Enter') {-->
+<!--            sendMessage();-->
+<!--        }-->
+<!--    }-->
+
+<!--    function sendMessage() {-->
+<!--        var messageInput = document.getElementById("message-input");-->
+<!--        var chatContent = document.getElementById("chat-content");-->
+
+<!--        var message = messageInput.value;-->
+<!--        if (message.trim() !== "") {-->
+<!--            // Create and append user message-->
+<!--            var newUserMessage = document.createElement("p");-->
+<!--            newUserMessage.className = "user-message";-->
+<!--            newUserMessage.textContent = message;-->
+<!--            chatContent.appendChild(newUserMessage);-->
+<!--            messageInput.value = "";-->
+
+<!--            // Send the message to the Flask server-->
+<!--            $.ajax({-->
+<!--                type: 'POST',-->
+<!--                url: '/sendMessage',-->
+<!--                data: {'message': message},-->
+<!--                success: function(response) {-->
+<!--                    var uppercaseMessage = response['message'];-->
+
+<!--                    // Create and append bot's response on the right side-->
+<!--                    var newBotMessage = document.createElement("p");-->
+<!--                    newBotMessage.className = "bot-message";-->
+<!--                    newBotMessage.textContent = uppercaseMessage;-->
+<!--                    chatContent.appendChild(newBotMessage);-->
+<!--                },-->
+<!--                error: function(error) {-->
+<!--                    console.log(error);-->
+<!--                }-->
+<!--            });-->
+<!--        }-->
+<!--    }-->
+
+<!--</script>-->
+
+
+<!--</body>-->
+<!--</html>-->
